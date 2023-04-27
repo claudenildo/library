@@ -1,52 +1,71 @@
-const openFormBtn = document.getElementById('open-form-btn');
-const formContainer = document.getElementById('form-container');
-const bookForm = document.getElementById('book-form');
-const bookList = document.getElementById('book-list');
+const addButton = document.querySelector(".add-book-button");
+const popup = document.querySelector(".popup");
+const closePopupButton = document.querySelector(".close-button");
+const form = document.querySelector("form");
+const content = document.querySelector(".content");
 
-openFormBtn.addEventListener('click', () => {
-  formContainer.style.display = 'block';
+let books = [];
+
+addButton.addEventListener("click", () => {
+  popup.style.display = "block";
 });
 
-bookForm.addEventListener('submit', (event) => {
+closePopupButton.addEventListener("click", () => {
+  popup.style.display = "none";
+});
+
+form.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const bookName = document.getElementById('book-name').value;
-  const bookAuthor = document.getElementById('book-author').value;
-  const bookPages = document.getElementById('book-pages').value;
+  const titulo = form.titulo.value;
+  const autor = form.autor.value;
+  const paginas = form.paginas.value;
+  const leu = form.leu.checked;
 
   const book = {
-    name: bookName,
-    author: bookAuthor,
-    pages: bookPages
+    titulo,
+    autor,
+    paginas,
+    leu,
   };
 
-  let books = JSON.parse(localStorage.getItem('books')) || [];
   books.push(book);
-  localStorage.setItem('books', JSON.stringify(books));
 
-  const bookEntry = document.createElement('div');
-  bookEntry.classList.add('book-entry');
-  bookEntry.innerHTML = `
-    <h2>${bookName}</h2>
-    <p>Autor: ${bookAuthor}</p>
-    <p>Número de Páginas: ${bookPages}</p>
-  `;
-  bookList.appendChild(bookEntry);
+  renderBooks();
 
-  bookForm.reset();
-  formContainer.style.display = 'none';
+  form.reset();
+
+  popup.style.display = "none";
 });
 
-window.addEventListener('load', () => {
-  const books = JSON.parse(localStorage.getItem('books')) || [];
+function renderBooks() {
+  content.innerHTML = "";
+
   books.forEach((book) => {
-    const bookEntry = document.createElement('div');
-    bookEntry.classList.add('book-entry');
-    bookEntry.innerHTML = `
-      <h2>${book.name}</h2>
-      <p>Autor: ${book.author}</p>
-      <p>Número de Páginas: ${book.pages}</p>
-    `;
-    bookList.appendChild(bookEntry);
+    const bookCard = document.createElement("div");
+    bookCard.classList.add("book-card");
+
+    const title = document.createElement("div");
+    title.classList.add("book-title");
+    title.textContent = book.titulo;
+
+    const author = document.createElement("div");
+    author.classList.add("book-author");
+    author.textContent = `Autor: ${book.autor}`;
+
+    const pages = document.createElement("div");
+    pages.classList.add("book-pages");
+    pages.textContent = `Páginas: ${book.paginas}`;
+
+    const read = document.createElement("div");
+    read.classList.add("book-read");
+    read.textContent = book.leu ? "Leu" : "Não leu";
+
+    bookCard.appendChild(title);
+    bookCard.appendChild(author);
+    bookCard.appendChild(pages);
+    bookCard.appendChild(read);
+
+    content.appendChild(bookCard);
   });
-});
+}

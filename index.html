@@ -1,26 +1,40 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Formulário de Livro</title>
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <button id="open-form-btn">Adicionar Livro</button>
-
-    <div id="form-container">
-      <form id="book-form">
-        <label for="book-name">Nome do Livro:</label>
-        <input type="text" id="book-name" name="book-name">
-        <label for="book-author">Autor do Livro:</label>
-        <input type="text" id="book-author" name="book-author">
-        <label for="book-pages">Número de Páginas:</label>
-        <input type="number" id="book-pages" name="book-pages">
-        <button type="submit">Salvar</button>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Adicionar Livro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Minha Biblioteca</h1>
+    <button class="add-book-button">Adicionar Livro</button>
+  </header>
+  
+  <div class="popup">
+    <div class="popup-content">
+      <span class="close-button">&times;</span>
+      <h2>Cadastrar Livro</h2>
+      <form>
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" required>
+        
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" name="autor" required>
+        
+        <label for="paginas">Páginas:</label>
+        <input type="number" id="paginas" name="paginas" required>
+        
+        <label for="leu">Leu:</label>
+        <input type="checkbox" id="leu" name="leu">
+        
+        <input type="submit" value="Cadastrar">
       </form>
     </div>
-
-    <div id="book-list"></div>
-    
-    <script src="script.js"></script>
-  </body>
+  </div>
+  
+  <section class="content"></section>
+  
+  <script src="script.js"></script>
+</body>
 </html>
